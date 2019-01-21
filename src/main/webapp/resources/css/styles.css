@@ -1,0 +1,16 @@
+body{
+    height:100%;
+    background-color: #f0ffee;
+    font-family: monospace;
+}
+
+.user_input{
+    font-size: 14pt;
+    color: #141914;
+    padding: 5px;
+}
+
+.user_input:focus{
+    outline: none;
+    box-shadow: 0px 0px 2px #141914;
+}
