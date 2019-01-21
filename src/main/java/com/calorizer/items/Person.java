@@ -1,21 +1,18 @@
 package com.calorizer.items;
 
-import com.calorizer.calculation.ActivityMultiplier;
-
 import java.util.Objects;
 
 public class Person extends Entity{
 
+    private String firstName;
+    private String lastName;
     private Sex sex;
-
-
     private int age;
-    private int weight;  //TODO maybe double?
+    private double weight;
     private int height;
-    private ActivityMultiplier activityMultiplier;
+    private Lifestyle lifestyle;
 
-    public Person(int id) {
-        super(id);
+    public Person() {
     }
 
     public Person(int id, Sex sex) {
@@ -44,13 +41,14 @@ public class Person extends Entity{
         this.height = height;
     }
 
-    public Person(int id, Sex sex, int age, int weight, int height, ActivityMultiplier activityMultiplier) {
-        super(id);
+    public Person(String firstName, String lastName, Sex sex, int age, double weight, int height, Lifestyle lifestyle) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.sex = sex;
         this.age = age;
         this.weight = weight;
         this.height = height;
-        this.activityMultiplier = activityMultiplier;
+        this.lifestyle = lifestyle;
     }
 
     public Sex getSex() {
@@ -69,11 +67,11 @@ public class Person extends Entity{
         this.age = age;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -85,17 +83,20 @@ public class Person extends Entity{
         this.height = height;
     }
 
-    public ActivityMultiplier getActivityMultiplier() {
-        return activityMultiplier;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
-        this.activityMultiplier = activityMultiplier;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(sex, age, weight, height, activityMultiplier);
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -104,20 +105,29 @@ public class Person extends Entity{
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
         return age == person.age &&
-                weight == person.weight &&
+                Double.compare(person.weight, weight) == 0 &&
                 height == person.height &&
+                firstName.equals(person.firstName) &&
+                lastName.equals(person.lastName) &&
                 sex == person.sex &&
-                Objects.equals(activityMultiplier, person.activityMultiplier);
+                Objects.equals(lifestyle, person.lifestyle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, sex, age, weight, height, lifestyle);
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "sex=" + sex +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", sex=" + sex +
                 ", age=" + age +
                 ", weight=" + weight +
                 ", height=" + height +
-                ", activityMultiplier=" + activityMultiplier +
+                ", lifestyle=" + lifestyle +
                 '}';
     }
 }
