@@ -11,121 +11,75 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = {"/product"} )
+@WebServlet(urlPatterns = {"/product"})
 public class ProductServlet extends HttpServlet {
-
-    List<Note> notes;
-    ArrayList<Product> selectedProducts;
-
     @Override
-    public void init() throws ServletException {
-        System.out.println("ProductServlet init");
-        notes = new ArrayList();
-        selectedProducts = new ArrayList<>();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            processRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("ProductServlet doGet");
-       /* String selectedDate = request.getParameter("selectedDate");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            processRequest(request, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
+        //String testDate = request.getParameter("testDate");
+        //System.out.println("ProductServlet doPost testDate: " + testDate);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
+
+        String productTitle = request.getParameter("productUserInput");
+        String productWeight = request.getParameter("weightUserInput");
+        String selectedDate = request.getParameter("selectedDate");
+        Product product = new ProductDAO().getByTitle(productTitle);
+
+        List<Note> notes = new ArrayList<>();
+
+        if (productTitle != null && productWeight != null) {
+            Note note = new Note(product, Integer.parseInt(productWeight), selectedDate);
+            new NoteDAO().create(note);
+        }
 
         notes.addAll(new NoteDAO().getByDate(selectedDate));
 
-        double proteinsSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getProteins()).sum();
-
-        double fatsSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getFats()).sum();
-        double carbohydratesSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getCarbohydrates()).sum();
-        double caloriesSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getCalories()).sum();
+        double proteinsSum = notes.stream().mapToDouble(
+                Note::getProteinsPerWeight).sum();
+        double fatsSum = notes.stream().mapToDouble(
+                Note::getFatsPerWeight).sum();
+        double carbohydratesSum = notes.stream().mapToDouble(
+                Note::getCarbohydratesPerWeight).sum();
+        double caloriesSum = notes.stream().mapToDouble(
+                Note::getCaloriesPerWeight).sum();
         double weightSum = notes.stream().mapToDouble(
-                (item) -> item.getWeight()).sum();
+                Note::getWeight).sum();
 
         request.setAttribute("list", notes);
         request.setAttribute("productWeight", weightSum);
-        request.setAttribute("size", selectedProducts.size());//notes.size?
+        request.setAttribute("size", notes.size());
         request.setAttribute("proteinsSum", proteinsSum);
         request.setAttribute("fatsSum", fatsSum);
         request.setAttribute("carbohydratesSum", carbohydratesSum);
         request.setAttribute("caloriesSum", caloriesSum);
         request.setAttribute("selectedDate", selectedDate);
 
-        request.getRequestDispatcher("/pages/main.jsp").forward(request, response);*/
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        //System.out.println("ProductServlet doPost userInput: " + request.getParameter("productUserInput"));
-        //todo делать пересчет каллорийности согласно весу продукта
-        System.out.println("ProductServlet doPost weightInput: " + request.getParameter("weightUserInput"));
-        String productWeight = request.getParameter("weightUserInput");
-        String productTitle = request.getParameter("productUserInput");
-        String selectedDate = request.getParameter("selectedDate");
-
-
-
-        //System.out.println("ProductServlet doPost now date: "+ request.getParameter("todayDate"));
-         //тут получаем title
-        Product product = new ProductDAO().getByTitle(productTitle);
-        selectedProducts.add(product);
-
-        /*DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDate = formatter.format(new java.util.Date());*/
-
-        System.out.println("ProductServlet currentDate: " +selectedDate);
-
-        Note note = new Note(product, Integer.parseInt(productWeight), selectedDate);
-        if (new NoteDAO().create(note)) {
-            notes.addAll(new NoteDAO().getByDate(selectedDate));
-        }
-
-       //нужно из notes получить все показатели по калорийности с учетом веса
-
-        double proteinsSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getProteins()).sum();
-
-        double fatsSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getFats()).sum();
-        double carbohydratesSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getCarbohydrates()).sum();
-        double caloriesSum = selectedProducts.stream().mapToDouble(
-                (item) -> item.getCalories()).sum();
-        double weightSum = notes.stream().mapToDouble(
-                (item) -> item.getWeight()).sum();
-
-//TODO NOTE OBJECT?
-        System.out.println("ProductServlet doPost " + product);
-        /*request.setAttribute("list", selectedProducts);
-        request.setAttribute("productWeight", productWeight);
-        request.setAttribute("size", selectedProducts.size());
-        request.setAttribute("proteinsSum", proteinsSum);
-        request.setAttribute("fatsSum", fatsSum);
-        request.setAttribute("carbohydratesSum", carbohydratesSum);
-        request.setAttribute("caloriesSum", caloriesSum);*/
-
-        request.setAttribute("list", notes);
-        request.setAttribute("productWeight", weightSum);
-        request.setAttribute("size", selectedProducts.size());//notes.size?
-        request.setAttribute("proteinsSum", proteinsSum);
-        request.setAttribute("fatsSum", fatsSum);
-        request.setAttribute("carbohydratesSum", carbohydratesSum);
-        request.setAttribute("caloriesSum", caloriesSum);
-        request.setAttribute("selectedDate", selectedDate);
-
-        //отобразить тут таблицу
-        //request.setAttribute("MyProfile", );
         request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
     }
-
-
 }

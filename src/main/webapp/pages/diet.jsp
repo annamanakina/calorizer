@@ -22,15 +22,17 @@
 
 <fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="theFormattedDate"/> <br/>
 
-<form action="getNotesByDate" method="get">
-<p >Сегодня:</p>
-<input type="date" id="todayDate" name="selectedDate"
-       value="${empty selectedDate ? theFormattedDate : selectedDate}">
-<input type="submit" name="button_show_byDate" value="Отобразить"> <br/>
+<form action="product" method="get">
+    <p >Сегодня:</p>
+    <input type="date" id="todayDate" name="selectedDate"
+           value="${empty selectedDate ? theFormattedDate : selectedDate}">
+    <input type="submit" name="button_show_byDate" value="Отобразить"> <br/>
 </form>
 
-<form name="AddProduct" action="product" method="post">
+<form action="product" method="post">
 
+    <input type="hidden" id="duplicateDate" name="selectedDate"
+           value="${empty selectedDate ? theFormattedDate : selectedDate}">
     <p>Product: </p>
     <input id="productInput" name="productUserInput" type="text" list="datalist"/>
     <datalist name="listItem" id="datalist">
