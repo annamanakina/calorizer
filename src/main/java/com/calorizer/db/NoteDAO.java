@@ -45,10 +45,12 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
     private List<Note> query(String query) {
        // System.out.println("query: " + query);
         List<Note> notes = new ArrayList<>();
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
 
             ResultSet resultSet =
@@ -76,8 +78,8 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
             // код возвращения экземпляра Connection в пул //todo????
         }
         return notes;
@@ -90,11 +92,12 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
         String query = EXTRA_ALL_FROM + TABLE_NOTES +", " + TABLE_PRODUCTS +
                   EXTRA_WHERE + "daily_products_notes.product_id = products.id and daily_products_notes.id = " + id +";";
         //System.out.println("Note getById " + query);
-
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         Note note = null;
         try {
+            pool = ConnectionPool.getInstance();
             cn = DataBaseHelper.getConnection();
             st = cn.createStatement();
 
@@ -120,8 +123,8 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
             // код возвращения экземпляра Connection в пул //todo????
         }
 
@@ -130,11 +133,13 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
 
     @Override
     public boolean delete(Integer id) {
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
 
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
         String query = "DELETE FROM " +TABLE_NOTES + EXTRA_WHERE + TABLE_NOTES+".id = " + id +";";
         return st.execute(query);
@@ -142,8 +147,8 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
             // код возвращения экземпляра Connection в пул //todo????
         }
         return false;
@@ -156,11 +161,13 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
 
     @Override
     public boolean create(Note note) {
+        ConnectionPool pool = null;
         boolean isCreated = false;
         Connection cn = null;
         Statement st = null;
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
 
             String str = "insert into calorizerdb.daily_products_notes VALUES ("
@@ -181,8 +188,8 @@ products.calories*daily_products_notes.weight/100 as p_calories FROM calorizerdb
         } catch (SQLException e) {
             System.err.println("NoteDAO create: SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
         }
 
         //System.out.println(isCreated);

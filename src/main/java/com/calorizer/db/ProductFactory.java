@@ -1,8 +1,6 @@
 package com.calorizer.db;
 
 
-import com.calorizer.products.Berries;
-
 public class ProductFactory {
     public static final String BERRIES = "berries";
     public static final int BERRIES_ID = 15;
@@ -16,7 +14,7 @@ public class ProductFactory {
 
         switch (id){
             case BERRIES_ID:
-                products = new Berries();
+              //  products = new Berries();
                 break;
            /*case EGGS:
                 products = new Eggs();

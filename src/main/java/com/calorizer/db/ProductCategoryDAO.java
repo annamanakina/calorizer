@@ -17,10 +17,12 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
     @Override
     public List<ProductCategory> getAll() {
         List<ProductCategory> productCategories = new ArrayList<>();
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         try {
-            cn =  DataBaseHelper.getConnection();//ConnectionPool.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn =  pool.getConnection();//ConnectionPool.getConnection();
             st = cn.createStatement();
             ResultSet resultSet =
                     st.executeQuery(SQL_SELECT_ALL_PRODUCT_CATEGORIES);
@@ -33,8 +35,8 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
             // код возвращения экземпляра Connection в пул //todo????
         }
         return productCategories;
@@ -80,12 +82,13 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
     }
 
     public ProductCategory createCategory(String title) {
-
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         ProductCategory category = null;
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn =  pool.getConnection();
             st = cn.createStatement();
             int resultValue = st.executeUpdate("insert into " + TABLE_PRODUCT_CATEGORY + " (title) VALUES ('"
                             + title + "') ON DUPLICATE KEY UPDATE product_category.title = '" + title + "';");
@@ -101,8 +104,8 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
         }
         return category;
     }
@@ -119,11 +122,13 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
     }
 
     private ProductCategory queryGetCategory(String query) {
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         ProductCategory category = null;
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn =  pool.getConnection();
             st = cn.createStatement();
 
             ResultSet resultSet =
@@ -136,8 +141,8 @@ public class ProductCategoryDAO extends AbstractDAO<Integer, ProductCategory> {
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            pool.close(st);
+            pool.close(cn);
 
         }
         return category;

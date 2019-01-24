@@ -1,8 +1,6 @@
 package com.calorizer.db;
 
 import com.calorizer.items.Product;
-//import com.calorizer.utils.Constant;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,10 +47,12 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
 
     private List<Product> query(String query){
         List<Product> products = new ArrayList<>();
+        ConnectionPool pool= null;
         Connection cn = null;
         Statement st = null;
         try {
-            cn = DataBaseHelper.getConnection();//ConnectionPool.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
 
             ResultSet resultSet =
@@ -71,9 +71,10 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
-            // код возвращения экземпляра Connection в пул //todo????
+            if (pool != null) {
+                pool.close(st);
+                pool.close(cn);
+            }
         }
 
         return products;
@@ -81,11 +82,13 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
 
 
     private Product queryGetProduct(String query){
+        ConnectionPool pool= null;
         Connection cn = null;
         Statement st = null;
         Product product = null;
         try {
-            cn = DataBaseHelper.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
 
             ResultSet resultSet =
@@ -104,9 +107,10 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
-
+            if (pool != null) {
+                pool.close(st);
+                pool.close(cn);
+            }
         }
 
         return product;
@@ -141,22 +145,16 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
         return false;
     }
 
-
-    //добавить в таблицу продукты новый продукт, еще должна быть категория товара
     @Override
     public boolean create(Product product) {
-        /*Для добавления, удаления или изменения информации в таблице запрос по-
-мещается в метод executeUpdate().*/
-
         boolean isCreated = false;
+        ConnectionPool pool = null;
         Connection cn = null;
         Statement st = null;
         try {
-            cn = DataBaseHelper.getConnection();//ConnectionPool.getConnection();
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
             st = cn.createStatement();
-
-            //  ResultSet resultSet =
-            //"INSERT INTO Customers VALUES (1001, 'Simpson', 'Mr.', 'Springfield', 2001)");
 
             st.executeUpdate("insert into calorizerdb.products (title, proteins, fats, carbohydrates, calories, product_category_id) VALUES ('"
                       + product.getTitle() + "', "
@@ -164,20 +162,21 @@ public class ProductDAO extends AbstractDAO<Integer, Product> {
                       + product.getFats() + ", "
                       + product.getCarbohydrates()+ ", "
                       + product.getCalories() + ", "
-                      + product.getProductCategoryId() + ");" ); //todo проверить тут запрос
+                      + product.getProductCategoryId() + ");" );
             isCreated = true;
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
-            close(st);
-            close(cn);
+            if (pool != null) {
+                pool.close(st);
+                pool.close(cn);
+            }
         }
         return isCreated;
     }
 
     @Override
     public Product update(Product object) {
-
         return null;
     }
 
