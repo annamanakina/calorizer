@@ -19,10 +19,16 @@
 <jsp:useBean id="products" scope="request" class="com.calorizer.db.ProductDAO"/>
 <jsp:useBean id="notes" scope="application" class="com.calorizer.db.NoteDAO"/>
 <jsp:useBean id="now" class="java.util.Date"/>
+<jsp:useBean id="person" class="com.calorizer.items.Person"/>
 
-<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="theFormattedDate"/> <br/>
+<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="theFormattedDate"/>
 
 <form action="product" method="get">
+    <p> Суточная норма потребления, ккал: <b><c:out value="person.metabolicRate.dailyCaloriesIntakes"/> </b> </p><br>
+    <p>За <c:out value="${empty selectedDate ? theFormattedDate : selectedDate}"/> потрачено, ккал: <b> <c:out value="${empty caloriesSum ? 0.0 : caloriesSum}"/>  </b></p><br>
+
+    <p style="visibility: visible; color: red;">Вы превысили суточную норму поребления калорий на ______  %</p><br>
+
     <p >Сегодня:</p>
     <input type="date" id="todayDate" name="selectedDate"
            value="${empty selectedDate ? theFormattedDate : selectedDate}">
@@ -88,5 +94,6 @@
     </tr>
 
 </table>
+
 </body>
 </html>

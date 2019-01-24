@@ -64,7 +64,6 @@
 <div id="Calorie_table" class="tabcontent" style="margin: 0 auto; border: 1px solid mediumvioletred;">
     <div id="catalog" style="display: inline-block; border: 1px solid mediumvioletred;">
         <h3>Calorie table</h3>
-        <p>Some news this fine day!</p>
         <c:forEach var="categoryItem" items="${categoryList1.all}">
             <li>
                 <a href="category?categoryItemId=${categoryItem.id}"> <c:out value="${categoryItem.title}"/> </a>
@@ -73,9 +72,8 @@
     </div>
 </div>
 
-<div id="MyProfile" class="tabcontent">
+<div id="MyProfile" class="tabcontent" >
     <h3>MyProfile</h3>
-    <p>Get in touch, or swing by for a cup of coffee.</p>
     <jsp:include page="diet.jsp"/>
 </div>
 
