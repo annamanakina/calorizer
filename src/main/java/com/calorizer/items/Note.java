@@ -1,7 +1,5 @@
-package com.calorizer.calculation;
+package com.calorizer.items;
 
-import com.calorizer.items.Entity;
-import com.calorizer.items.Product;
 import java.util.Objects;
 
 public class Note extends Entity {
