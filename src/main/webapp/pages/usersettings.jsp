@@ -48,9 +48,9 @@
 <form name="usersettings_form" action="usersettings" method="post">
     <div style="display: inline-block; border:1px solid blue; width: 40%; padding: 20px;  background-color: #ceffc9; ">
         <p id="sex"> Sex: </p>
-        <input type="radio" name="gender" value="male" checked style="display: inline-block">
+        <input type="radio" name="gender" value="MALE" checked style="display: inline-block">
         <p>  Male </p>
-        <input type="radio" name="gender" value="female"> <p> Female </p><br>
+        <input type="radio" name="gender" value="FEMALE"> <p> Female </p><br>
         <p>  Age, y.o.: </p>
         <input type="number" name="age" style="height: 30px; width: 80px;"> <br>
         <p> Height, cm: </p>
