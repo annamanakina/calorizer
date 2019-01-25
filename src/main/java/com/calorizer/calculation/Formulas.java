@@ -5,7 +5,15 @@ import com.calorizer.items.Person;
 public class Formulas {
 
      public static double calculateDailyCaloriesByHarrisBenedictEquation(Person person){
-        return person.getMetabolicRate().getBasalMetabolicRate() * person.getMetabolicRate().getActivityMultiplier().getFactor();
+         double bmr = 0;
+         double factor = 0;
+         if (person.getMetabolicRate() != null) {
+             bmr = person.getMetabolicRate().getBasalMetabolicRate();
+             factor = person.getMetabolicRate().getActivityMultiplier().getFactor();
+         if (bmr == 0 | factor == 0) throw new IllegalArgumentException();
+         }
+        return bmr * factor;
+                //person.getMetabolicRate().getBasalMetabolicRate() * person.getMetabolicRate().getActivityMultiplier().getFactor();
     }
 
     /*public static double calculateDailyCaloriesByMifflinJeorEquation(Person person){
