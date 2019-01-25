@@ -22,10 +22,14 @@
 <jsp:useBean id="person" class="com.calorizer.items.Person"/>
 
 <fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="theFormattedDate"/>
+<fmt:setLocale value="en_US"/>
 
 <form action="product" method="get">
-    <p> Суточная норма потребления, ккал: <b><c:out value="person.metabolicRate.dailyCaloriesIntakes"/> </b> </p><br>
-    <p>За <c:out value="${empty selectedDate ? theFormattedDate : selectedDate}"/> потрачено, ккал: <b> <c:out value="${empty caloriesSum ? 0.0 : caloriesSum}"/>  </b></p><br>
+    <p> Суточная норма потребления, ккал: <b>
+        <fmt:formatNumber minFractionDigits = "2" value="${empty person.metabolicRate.dailyCaloriesIntakes ? 0.0 : person.metabolicRate.dailyCaloriesIntakes}" type = "number"/>
+        </b> </p><br>
+    <p>За <c:out value="${empty selectedDate ? theFormattedDate : selectedDate}" /> потрачено , ккал:
+        <b> <fmt:formatNumber minFractionDigits = "2" value="${empty caloriesSum ? 0.00 : caloriesSum}" type = "number"/>  </b></p><br>
 
     <p style="visibility: visible; color: red;">Вы превысили суточную норму поребления калорий на ______  %</p><br>
 
@@ -68,11 +72,11 @@
         <tr>
             <td><c:out value="${status.count }"/></td>
             <td><c:out value="${item.product.title }"/></td>
-            <td><c:out value="${item.weight}"/></td>
-            <td><c:out value="${item.proteinsPerWeight}"/></td>
-            <td><c:out value="${item.fatsPerWeight}"/></td>
-            <td><c:out value="${item.carbohydratesPerWeight}"/></td>
-            <td><c:out value="${item.caloriesPerWeight}"/></td>
+            <td><fmt:formatNumber minFractionDigits = "2" value="${item.weight}" type = "number"/></td>
+            <td><fmt:formatNumber minFractionDigits = "2" value ="${item.proteinsPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber minFractionDigits = "2" value="${item.fatsPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber minFractionDigits = "2" value="${item.carbohydratesPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber minFractionDigits = "2" value="${item.caloriesPerWeight}" type = "number"/></td>
             <td>
                 <form action="deletenote" method="post">
                     <input type="hidden" name="delete_button_id2" value="${notes.getById(item.id).id}">
@@ -85,11 +89,10 @@
     <tr>
         <th></th>
         <th>Итого:</th>
-        <th><c:out value="${productWeight}"/></th>
-        <th><c:out value="${proteinsSum}"/></th>
-        <th><c:out value="${fatsSum}"/></th>
-        <th><c:out value="${carbohydratesSum}"/></th>
-        <th><c:out value="${caloriesSum}"/></th>
+        <th><fmt:formatNumber minFractionDigits = "2" value="${productWeight}" type = "number"/></th>
+        <th><fmt:formatNumber minFractionDigits = "2" value = "${fatsSum}" type = "number"/></th>
+        <th><fmt:formatNumber minFractionDigits = "2" value = "${carbohydratesSum}" type = "number"/></th>
+        <th><fmt:formatNumber minFractionDigits = "2" value="${caloriesSum}" type = "number"/></th>
 
     </tr>
 
