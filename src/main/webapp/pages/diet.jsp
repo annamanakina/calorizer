@@ -26,10 +26,10 @@
 
 <form action="product" method="get">
     <p> Суточная норма потребления, ккал: <b>
-        <fmt:formatNumber minFractionDigits = "2" value="${empty person.metabolicRate.dailyCaloriesIntakes ? 0.0 : person.metabolicRate.dailyCaloriesIntakes}" type = "number"/>
+        <fmt:formatNumber pattern = "#,##0.0"  value="${empty person.metabolicRate.dailyCaloriesIntakes ? 0.0 : person.metabolicRate.dailyCaloriesIntakes}" type = "number"/>
         </b> </p><br>
     <p>За <c:out value="${empty selectedDate ? theFormattedDate : selectedDate}" /> потрачено , ккал:
-        <b> <fmt:formatNumber minFractionDigits = "2" value="${empty caloriesSum ? 0.00 : caloriesSum}" type = "number"/>  </b></p><br>
+        <b> <fmt:formatNumber pattern = "#,##0.0"  value="${empty caloriesSum ? 0.00 : caloriesSum}" type = "number"/>  </b></p><br>
 
     <p style="visibility: visible; color: red;">Вы превысили суточную норму поребления калорий на ______  %</p><br>
 
@@ -72,11 +72,11 @@
         <tr>
             <td><c:out value="${status.count }"/></td>
             <td><c:out value="${item.product.title }"/></td>
-            <td><fmt:formatNumber minFractionDigits = "2" value="${item.weight}" type = "number"/></td>
-            <td><fmt:formatNumber minFractionDigits = "2" value ="${item.proteinsPerWeight}" type = "number"/></td>
-            <td><fmt:formatNumber minFractionDigits = "2" value="${item.fatsPerWeight}" type = "number"/></td>
-            <td><fmt:formatNumber minFractionDigits = "2" value="${item.carbohydratesPerWeight}" type = "number"/></td>
-            <td><fmt:formatNumber minFractionDigits = "2" value="${item.caloriesPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber pattern = "#,##0.0" value="${item.weight}" type = "number"/></td>
+            <td><fmt:formatNumber pattern = "#,##0.0" value ="${item.proteinsPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber pattern = "#,##0.0" value="${item.fatsPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber pattern = "#,##0.0" value="${item.carbohydratesPerWeight}" type = "number"/></td>
+            <td><fmt:formatNumber pattern = "#,##0.0" value="${item.caloriesPerWeight}" type = "number"/></td>
             <td>
                 <form action="deletenote" method="post">
                     <input type="hidden" name="delete_button_id2" value="${notes.getById(item.id).id}">
@@ -89,10 +89,11 @@
     <tr>
         <th></th>
         <th>Итого:</th>
-        <th><fmt:formatNumber minFractionDigits = "2" value="${productWeight}" type = "number"/></th>
-        <th><fmt:formatNumber minFractionDigits = "2" value = "${fatsSum}" type = "number"/></th>
-        <th><fmt:formatNumber minFractionDigits = "2" value = "${carbohydratesSum}" type = "number"/></th>
-        <th><fmt:formatNumber minFractionDigits = "2" value="${caloriesSum}" type = "number"/></th>
+        <th><fmt:formatNumber pattern = "#,##0.0" value="${productWeight}" type = "number"/></th>
+        <th><fmt:formatNumber pattern = "#,##0.0" value = "${proteinsSum}" type = "number" /></th>
+        <th><fmt:formatNumber pattern = "#,##0.0" value = "${fatsSum}" type = "number"/></th>
+        <th><fmt:formatNumber pattern = "#,##0.0" value = "${carbohydratesSum}" type = "number"/></th>
+        <th><fmt:formatNumber pattern = "#,##0.0" value="${caloriesSum}" type = "number"/></th>
 
     </tr>
 

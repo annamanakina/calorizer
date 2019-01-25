@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>My settings</title>
@@ -45,6 +46,7 @@
 
 <h3> My settings</h3>
 
+
 <form name="usersettings_form" action="usersettings" method="post">
     <div style="display: inline-block; border:1px solid blue; width: 40%; padding: 20px;  background-color: #ceffc9; ">
         <p id="sex"> Sex: </p>
@@ -75,9 +77,12 @@
 
     </div>
     <div style="display: inline-block; border:1px solid red; width: 50%;  background-color: aquamarine; " >
-        <p class="indicator" name="mbi"> BMI (body mass index): ${mbi}  </p>
+        <fmt:setLocale value="en_US"/>
+        <p class="indicator" name="mbi"> BMI (body mass index):
+            <fmt:formatNumber maxFractionDigits = "2" value="${mbi}" type="number"/>  </p>
         <p class="indicator" name="daily_intake"> Daily calorie intakes: --- </p>
-        <p class="indicator" name="bmr"> Basal metabolic rate: ${bmr} </p>
+        <p class="indicator" name="bmr"> Basal metabolic rate:
+            <fmt:formatNumber maxFractionDigits = "1" value="${bmr}" type="number"/>  </p>
 
     </div>
 
