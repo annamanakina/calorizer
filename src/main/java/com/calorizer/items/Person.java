@@ -8,9 +8,9 @@ public class Person extends Entity{
     private String lastName;
     private Sex sex;
     private int age;
-    private double weight;
+    private int weight;
     private int height;
-    private Lifestyle lifestyle;
+    private MetabolicRate metabolicRate;
 
     public Person() {
     }
@@ -33,22 +33,19 @@ public class Person extends Entity{
         this.weight = weight;
     }
 
-    public Person(int id, Sex sex, int age, int weight, int height) {
-        super(id);
+    public Person( Sex sex, int age, int weight, int height) {
         this.sex = sex;
         this.age = age;
         this.weight = weight;
         this.height = height;
     }
 
-    public Person(String firstName, String lastName, Sex sex, int age, double weight, int height, Lifestyle lifestyle) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person( int id, Sex sex, int age, int weight, int height) {
+        super(id);
         this.sex = sex;
         this.age = age;
         this.weight = weight;
         this.height = height;
-        this.lifestyle = lifestyle;
     }
 
     public Sex getSex() {
@@ -67,11 +64,11 @@ public class Person extends Entity{
         this.age = age;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -99,6 +96,15 @@ public class Person extends Entity{
         this.lastName = lastName;
     }
 
+    public MetabolicRate getMetabolicRate() {
+        return metabolicRate;
+    }
+
+    public void setMetabolicRate(MetabolicRate metabolicRate) {
+
+       this.metabolicRate = metabolicRate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,12 +116,12 @@ public class Person extends Entity{
                 firstName.equals(person.firstName) &&
                 lastName.equals(person.lastName) &&
                 sex == person.sex &&
-                Objects.equals(lifestyle, person.lifestyle);
+                Objects.equals(metabolicRate, person.metabolicRate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, sex, age, weight, height, lifestyle);
+        return Objects.hash(firstName, lastName, sex, age, weight, height, metabolicRate);
     }
 
     @Override
@@ -127,7 +133,7 @@ public class Person extends Entity{
                 ", age=" + age +
                 ", weight=" + weight +
                 ", height=" + height +
-                ", lifestyle=" + lifestyle +
+                ", metabolicRate=" + metabolicRate +
                 '}';
     }
 }

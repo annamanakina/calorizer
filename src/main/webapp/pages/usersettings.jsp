@@ -38,8 +38,6 @@
            height: 30px;
        }
 
-
-
    </style>
 </head>
 <body>
@@ -62,25 +60,23 @@
         <p id="lifestyle"> Lifestyle: </p>
 
         <select name="lifestyle" id="datalist">
-            <option name="lifestyleOption" value="1">Sedentary lifestyle</option>
-            <option name="lifestyleOption" value="2">Slightly active lifestyle</option>
-            <option name="lifestyleOption" value="3">Moderately active lifestyle</option>
-            <option name="lifestyleOption" value="4">Active lifestyle</option>
-            <option name="lifestyleOption" value="5">Very active lifestyle</option>
+            <option name="lifestyleOption" value="SEDENTARY">Sedentary lifestyle</option>
+            <option name="lifestyleOption" value="MILD">Slightly active lifestyle</option>
+            <option name="lifestyleOption" value="MODERATE">Moderately active lifestyle</option>
+            <option name="lifestyleOption" value="HEAVY">Active lifestyle</option>
+            <option name="lifestyleOption" value="EXTREME">Very active lifestyle</option>
 
         </select>
 
         <input id="calculate" type="submit" name="button" value="Calculate"/>
-
-        <!-- Activity factor
-         https://www.medicalnewstoday.com/articles/245588.php-->
 
     </div>
     <div style="display: inline-block; border:1px solid red; width: 50%;  background-color: aquamarine; " >
         <fmt:setLocale value="en_US"/>
         <p class="indicator" name="mbi"> BMI (body mass index):
             <fmt:formatNumber maxFractionDigits = "2" value="${mbi}" type="number"/>  </p>
-        <p class="indicator" name="daily_intake"> Daily calorie intakes: --- </p>
+        <p class="indicator" name="daily_intake"> Daily calorie intakes:
+            <fmt:formatNumber maxFractionDigits = "1" value="${daily_intake}" type="number"/> </p>
         <p class="indicator" name="bmr"> Basal metabolic rate:
             <fmt:formatNumber maxFractionDigits = "1" value="${bmr}" type="number"/>  </p>
 

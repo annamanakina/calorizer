@@ -1,6 +1,6 @@
 package com.calorizer.servlets;
 
-import com.calorizer.calculation.Note;
+import com.calorizer.items.Note;
 import com.calorizer.db.NoteDAO;
 import com.calorizer.db.ProductDAO;
 import com.calorizer.items.Product;
@@ -11,14 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//
 @WebServlet(urlPatterns = {"/product"})
 public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("ProductServlet session: " + request.getSession().getId() + "thread: "+ Thread.currentThread().getName());
+
         try {
             processRequest(request, response);
         } catch (ServletException e) {
@@ -71,13 +75,27 @@ public class ProductServlet extends HttpServlet {
         double weightSum = notes.stream().mapToDouble(
                 Note::getWeight).sum();
 
+        System.out.println("weightSum: " + weightSum);
+
+
         request.setAttribute("list", notes);
         request.setAttribute("productWeight", weightSum);
         request.setAttribute("size", notes.size());
-        request.setAttribute("proteinsSum", proteinsSum);
+
+        BigDecimal ps = new BigDecimal(proteinsSum).setScale(1, RoundingMode.HALF_UP);
+        //ps.;
+        request.setAttribute("proteinsSum", ps);
+        System.out.println("proteinsSum: " + proteinsSum);
+        System.out.println("proteinsSum ps: " + ps);
+
         request.setAttribute("fatsSum", fatsSum);
+        System.out.println("fatsSum: " + fatsSum);
+
         request.setAttribute("carbohydratesSum", carbohydratesSum);
+        System.out.println("carbohydratesSum: "+ carbohydratesSum);
         request.setAttribute("caloriesSum", caloriesSum);
+        System.out.println("caloriesSum: "+ caloriesSum);
+
         request.setAttribute("selectedDate", selectedDate);
 
         request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
