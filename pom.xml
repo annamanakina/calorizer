@@ -8,60 +8,7 @@
     <artifactId>Calorizer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-   <!-- <packaging>war</packaging>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>3.8.0</source>
-                     <target>7</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build> -->
-
-    <!-- <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.13</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javaee</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-    </dependencies> -->
+   <!-- <packaging>war</packaging> -->
     <packaging>war</packaging>
 
     <properties>
@@ -116,26 +63,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
         </dependency>
-
-        <!-- <dependency>
-             <groupId>javax.mail</groupId>
-             <artifactId>mail</artifactId>
-             <version>1.4</version>
-         </dependency>
-
-         <dependency>
-             <groupId>javax</groupId>
-             <artifactId>javaee-web-api</artifactId>
-             <version>6.0</version>
-         </dependency>
-
-         <dependency>
-             <groupId>javax</groupId>
-             <artifactId>javaee-api</artifactId>
-             <version>6.0</version>
-             <scope>provided</scope>
-         </dependency>-->
-
 
     </dependencies>
 
