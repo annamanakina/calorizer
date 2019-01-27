@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true">
+<Resource name="jdbc/calorizerdb"
+          author="Container"
+          type="javax.sql.DataSource"
+          driverClassName="com.mysql.jdbc.Driver"
+          url="jdbc:mysql://localhost:3306/calorizerdb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;encoding = UTF-8"
+          username="root"
+          password="F$3Kdn*6Q"
+          maxActive="20"
+          maxIdle="10"
+          maxWait="10000"
+          />
+</Context>
