@@ -23,7 +23,7 @@ public class CheckMetabolicRateParamsFilter implements Filter {
 
         if (age == null & height == null & weight == null ) {
             sendErrorMessage(servletRequest, servletResponse);
-        } else if ( (age != null && age.equals(""))  &  (height != null && height.equals("")) & (weight != null &&weight.equals(""))){
+        } else if ( (age != null && age.equals(""))  |  (height != null && height.equals("")) | (weight != null &&weight.equals(""))){
             sendErrorMessage(servletRequest, servletResponse);
         }
         else {
