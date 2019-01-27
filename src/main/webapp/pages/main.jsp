@@ -78,8 +78,7 @@
 </div>
 
 <div id="About" class="tabcontent">
-    <h3>About</h3>
-    <p>Who we are and what we do.</p>
+    <p name="error"> <c:out value="${empty error_message ? \"\" : error_message}"></c:out></p>
     <jsp:include page="usersettings.jsp"/>
 </div>
 
