@@ -1,6 +1,6 @@
 package com.calorizer.servlets.note;
 
-import com.calorizer.calculation.Note;
+import com.calorizer.items.Note;
 import com.calorizer.db.NoteDAO;
 
 import javax.servlet.ServletException;
@@ -18,12 +18,10 @@ public class GetNotesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        System.out.println("GetNotesServlet doGet");
         String selectedDate = request.getParameter("selectedDate");
 
         List<Note> notes = new NoteDAO().getByDate(selectedDate);
         notes.stream().forEach(System.out::println);
-        System.out.println("GetNotesServlet: " +notes.size());
 
         double proteinsSum = notes.stream().mapToDouble(
                 (item) -> item.getProteinsPerWeight()).sum();
@@ -39,7 +37,7 @@ public class GetNotesServlet extends HttpServlet {
 
         request.setAttribute("list", notes);
         request.setAttribute("productWeight", weightSum);
-        request.setAttribute("size", notes.size());//notes.size?
+        request.setAttribute("size", notes.size());
         request.setAttribute("proteinsSum", proteinsSum);
         request.setAttribute("fatsSum", fatsSum);
         request.setAttribute("carbohydratesSum", carbohydratesSum);

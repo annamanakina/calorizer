@@ -1,10 +1,7 @@
 package com.calorizer.servlets;
 
 import com.calorizer.db.ProductDAO;
-import com.calorizer.db.ProductFactory;
 import com.calorizer.items.Product;
-import com.calorizer.items.ProductCategory;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +38,6 @@ public class ProductCategoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       // super.doPost(req, resp);
         System.out.println("ProductCategoryServlet doPost");
         System.out.println(req.getParameter("postRequestCategory"));
     }
