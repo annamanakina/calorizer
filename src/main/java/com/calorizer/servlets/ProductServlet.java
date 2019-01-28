@@ -1,8 +1,10 @@
 package com.calorizer.servlets;
 
+import com.calorizer.db.PersonDAO;
 import com.calorizer.items.Note;
 import com.calorizer.db.NoteDAO;
 import com.calorizer.db.ProductDAO;
+import com.calorizer.items.Person;
 import com.calorizer.items.Product;
 
 import javax.servlet.ServletException;
@@ -16,9 +18,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-//
 @WebServlet(urlPatterns = {"/product"})
-public class ProductServlet extends HttpServlet {
+public class ProductServlet extends HttpServlet  {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("ProductServlet session: " + request.getSession().getId() + "thread: "+ Thread.currentThread().getName());
@@ -42,9 +43,6 @@ public class ProductServlet extends HttpServlet {
         } catch (ServletException e) {
             e.printStackTrace();
         }
-
-        //String testDate = request.getParameter("testDate");
-        //System.out.println("ProductServlet doPost testDate: " + testDate);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -75,15 +73,23 @@ public class ProductServlet extends HttpServlet {
         double weightSum = notes.stream().mapToDouble(
                 Note::getWeight).sum();
 
-        System.out.println("weightSum: " + weightSum);
+        //TODO pass person id
+        Person person = new PersonDAO().getById(5);
+        double dailyCalories = person.getMetabolicRate().getDailyCaloriesIntakes();
 
+        double excessOfDailyCalorie = 0.0;
+        if (dailyCalories < caloriesSum){
+            excessOfDailyCalorie = (caloriesSum - dailyCalories) / dailyCalories*100;
+        }
+
+        request.setAttribute("dailyCalories", dailyCalories);
+        request.setAttribute("excessOfDailyCalorie", excessOfDailyCalorie);
 
         request.setAttribute("list", notes);
         request.setAttribute("productWeight", weightSum);
         request.setAttribute("size", notes.size());
 
         BigDecimal ps = new BigDecimal(proteinsSum).setScale(1, RoundingMode.HALF_UP);
-        //ps.;
         request.setAttribute("proteinsSum", ps);
         System.out.println("proteinsSum: " + proteinsSum);
         System.out.println("proteinsSum ps: " + ps);

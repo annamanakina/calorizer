@@ -26,12 +26,12 @@
 
 <form action="product" method="get">
     <p> Суточная норма потребления, ккал: <b>
-        <fmt:formatNumber pattern = "#,##0.0"  value="${empty person.metabolicRate.dailyCaloriesIntakes ? 0.0 : person.metabolicRate.dailyCaloriesIntakes}" type = "number"/>
+        <fmt:formatNumber pattern = "#,##0.0"  value="${empty dailyCalories ? 0.0 : dailyCalories}" type = "number"/>
         </b> </p><br>
     <p>За <c:out value="${empty selectedDate ? theFormattedDate : selectedDate}" /> потрачено , ккал:
         <b> <fmt:formatNumber pattern = "#,##0.0"  value="${empty caloriesSum ? 0.00 : caloriesSum}" type = "number"/>  </b></p><br>
 
-    <p style="visibility: visible; color: red;">Вы превысили суточную норму поребления калорий на ______  %</p><br>
+    <p style="visibility: visible; color: red;">Вы превысили суточную норму поребления калорий на <fmt:formatNumber pattern = "#,##0.0" value="${empty excessOfDailyCalorie ? 0.0 : excessOfDailyCalorie}" type = "number"/>  %</p><br>
 
     <p >Сегодня:</p>
     <input type="date" id="todayDate" name="selectedDate"
