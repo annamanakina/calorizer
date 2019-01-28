@@ -60,24 +60,36 @@ public class Person extends Entity{
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public boolean setAge(int age) {
+        if (age < 0)
+            this.age = 0;
+        else
+            this.age = age;
+        return age >= 0;
     }
 
     public int getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public boolean setWeight(int weight) {
+        if (weight < 0)
+            this.weight = 0;
+        else
+            this.weight = weight;
+        return weight >= 0;
     }
 
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public boolean setHeight(int height) {
+        if (height < 0)
+            this.height = 0;
+        else
+            this.height = height;
+        return height >= 0;
     }
 
     public String getFirstName() {
