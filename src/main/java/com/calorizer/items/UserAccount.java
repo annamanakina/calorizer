@@ -2,22 +2,36 @@ package com.calorizer.items;
 
 import java.util.Objects;
 
-public class UserAccount {
+public class UserAccount extends Entity{
 
-    private String login;
+    private String username;
     private String password;
+    private String personId;
 
-    public UserAccount(String login, String password) {
-        this.login = login;
+    public UserAccount(int id, String username, String password, String personId) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.personId = personId;
+    }
+
+    public UserAccount(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public UserAccount(String username, String password, String personId) {
+        this.username = username;
+        this.password = password;
+        this.personId = personId;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -28,25 +42,35 @@ public class UserAccount {
         this.password = password;
     }
 
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAccount that = (UserAccount) o;
-        return login.equals(that.login) &&
-                password.equals(that.password);
+        return Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(personId, that.personId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(username, password, personId);
     }
 
     @Override
     public String toString() {
         return "UserAccount{" +
-                "login='" + login + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", personId='" + personId + '\'' +
                 '}';
     }
 }

@@ -27,6 +27,9 @@
 </head>
 <body>
 
+<jsp:include page="/pages/views/header.jsp"></jsp:include>
+<jsp:include page="/pages/views/menu.jsp"></jsp:include>
+
 <jsp:useBean id="categoryList1" scope="request" class="com.calorizer.db.ProductCategoryDAO"/>
 
 <button class="tablink" onclick="openPage('Home', this, '#677f64')">Home</button>

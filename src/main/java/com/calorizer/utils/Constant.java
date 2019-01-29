@@ -24,6 +24,12 @@ public class Constant {
     public static final String TABLE_PRODUCT_CATEGORY = "calorizerdb.product_category";
     public static final String TABLE_NOTES = "calorizerdb.daily_products_notes";
     public static final String TABLE_PERSON = "calorizerdb.person";
+    public static final String TABLE_USER_ACCOUNT = "user_account";
+    public static final String USER_ACCOUNT_ID = "username";
+    public static final String USER_NAME = "username";
+    public static final String USER_PASSWORD = "password";
+    public static final String USER_PERSON_ID = "person_id";
+
     public static final String EXTRA_SELECT = "SELECT";
     public static final String EXTRA_FROM = "FROM";
     public static final String EXTRA_ALL_FROM = "SELECT * FROM ";
