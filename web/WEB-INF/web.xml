@@ -12,36 +12,53 @@
     </jsp-config>
 
 
-
-   <filter>
-       <filter-name>CheckMetabolicRateParamsFilter</filter-name>
-       <filter-class>com.calorizer.filter.CheckMetabolicRateParamsFilter</filter-class>
-   </filter>
+   <!-- <filter>
+        <filter-name>jdbcFilter</filter-name>
+        <filter-class>com.calorizer.filter.JDBCFilter</filter-class>
+    </filter>
     <filter-mapping>
+        <filter-name>jdbcFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> -->
+
+    <!--  <filter>
+         <filter-name>cookieFilter</filter-name>
+         <filter-class>com.calorizer.filter.CookieFilter</filter-class>
+     </filter>
+     <filter-mapping>
+         <filter-name>cookieFilter</filter-name>
+         <url-pattern>/profile</url-pattern>
+     </filter-mapping> -->
+
+    <filter>
         <filter-name>CheckMetabolicRateParamsFilter</filter-name>
-        <url-pattern>/usersettings</url-pattern>
-    </filter-mapping>
+        <filter-class>com.calorizer.filter.CheckMetabolicRateParamsFilter</filter-class>
+    </filter>
+     <filter-mapping>
+         <filter-name>CheckMetabolicRateParamsFilter</filter-name>
+         <url-pattern>/myprofile</url-pattern>
+     </filter-mapping>
 
 
-  <!-- <error-page>
-   <exception-type>java.lang.Exception</exception-type>
-        <location>/src/main/webapp/pages/error/testerror.jsp</location>
-    </error-page>
+   <!-- <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+         <location>/src/main/webapp/pages/error/testerror.jsp</location>
+     </error-page>
 
-    <error-page>
-        <error-code>404</error-code>
-        <location>/src/main/webapp/pages/error/testerror.jsp</location>
-    </error-page> -->
+     <error-page>
+         <error-code>404</error-code>
+         <location>/src/main/webapp/pages/error/testerror.jsp</location>
+     </error-page> -->
 
 
     
     <welcome-file-list>
-        <welcome-file>/pages/main.jsp</welcome-file>
+        <welcome-file>/pages/home.jsp</welcome-file>
     </welcome-file-list>
 
 
     <!-- <welcome-file-list>
-       <welcome-file>registration/authorization.jsp</welcome-file>
+       <welcome-file>registration/login.jsp</welcome-file>
    </welcome-file-list> -->
    
 

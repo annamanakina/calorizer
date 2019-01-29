@@ -13,7 +13,10 @@
     <link rel="stylesheet" type="text/css" href="${cssURL}">
 </head>
 <body>
-<h3>REGISTER USER</h3>
+
+<jsp:include page="/pages/views/header.jsp"></jsp:include>
+<jsp:include page="/pages/views/menu.jsp"></jsp:include>
+
 <p style="color: red;">${errorString}</p>
 
 <form name="register_form" action="${pageContext.request.contextPath}/register" method="post"

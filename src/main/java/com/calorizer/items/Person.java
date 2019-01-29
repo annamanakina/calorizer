@@ -48,6 +48,11 @@ public class Person extends Entity{
         this.height = height;
     }
 
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Sex getSex() {
         return sex;
     }

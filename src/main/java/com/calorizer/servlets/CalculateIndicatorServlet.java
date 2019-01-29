@@ -1,7 +1,6 @@
 package com.calorizer.servlets;
 
 import com.calorizer.calculation.ActivityMultiplier;
-import com.calorizer.db.PersonDAO;
 import com.calorizer.factory.MetabolicIndexFactory;
 import com.calorizer.items.MetabolicRate;
 import com.calorizer.items.Person;
@@ -16,26 +15,19 @@ import java.io.IOException;
 
 import static com.calorizer.factory.MetabolicIndexFactory.*;
 
-
-@WebServlet(urlPatterns = {"/myprofile"})
-public class UserSettingsServlet extends HttpServlet {
-
-    @Override
-    public void init() throws ServletException {
-        System.out.println("init UserSettingsServlet ");
-    }
+@WebServlet(urlPatterns = {"/calculate"} )
+public class CalculateIndicatorServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("doGet UserSettingsServlet ");
-        req.getRequestDispatcher("/pages/usersettings.jsp").forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        System.out.println("UserSettingsServlet doPost gender: " + request.getParameter("gender")
+        //todo if null
+        System.out.println("CalculateIndicatorServlet doPost gender: " + request.getParameter("gender")
                 + ",  age: " + request.getParameter("age")
                 + ", height: " + request.getParameter("height")
                 + ", weight: " + request.getParameter("weight")
@@ -57,16 +49,15 @@ public class UserSettingsServlet extends HttpServlet {
 
         MetabolicRate mr = new MetabolicRate(ActivityMultiplier.getElementBy(lifestyle), bmi, bmr);
         person.setMetabolicRate(mr);
-        //System.out.println("person: "+person.getMetabolicRate() );
 
         double dci = MetabolicIndexFactory.calculate(DAILY_CALORIE_INTAKE, person);
         mr.setDailyCaloriesIntakes(dci);
         //todo add if (user is logged in)
 
-        System.out.println("create person: " + new PersonDAO().create(person));
         request.setAttribute("mbi", bmi);
         request.setAttribute("daily_intake", dci);
         request.setAttribute("bmr", bmr);
-        request.getRequestDispatcher("/pages/usersettings.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/home.jsp").forward(request, response);
     }
+
 }

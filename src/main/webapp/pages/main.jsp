@@ -32,17 +32,17 @@
 
 <jsp:useBean id="categoryList1" scope="request" class="com.calorizer.db.ProductCategoryDAO"/>
 
-<button class="tablink" onclick="openPage('Home', this, '#677f64')">Home</button>
+<!-- <button class="tablink" onclick="openPage('Home', this, '#677f64')">Home</button>
 <button class="tablink" onclick="openPage('Calorie_table', this, '#677f64')" id="defaultOpen">Calorie table</button>
 <button class="tablink" onclick="openPage('MyProfile', this, '#677f64')">MyProfile</button>
-<button class="tablink" onclick="openPage('About', this, '#677f64')">About</button>
+<button class="tablink" onclick="openPage('About', this, '#677f64')">About</button> -->
 
 <div id="Home" class="tabcontent" style=" text-align: center;">
     <div id="block_product_editing" style="display: inline-block; margin: 0 auto; ">
         <h3>Add product to the table</h3>
         <form name="addCategory" action="addProduct" method="post">
 
-            <p>Select product category: </p>
+            <p>Выберите категорию продукта: </p>
             <input id="productCategoryInput" name="addProductCategoryInput" type="text" list="categoryList"/>
             <datalist name="listItem" id="categoryList">
                 <c:forEach var="categoryItem" items="${categoryList1.all}">
@@ -51,7 +51,7 @@
                 </c:forEach>
             </datalist>
 
-            <p>Select product category: </p>
+            <p>Выберите продукт: </p>
             <input id="productInput" name="addProductInput" type="text" placeholder="Enter product">
             <input class="add_input" id="proteinsInput" name="addProteinsInput" type="number" min="0" step="0.01">
             <input class="add_input" id="fatsInput" name="addFatsInput" type="number" min="0" step="0.01">
@@ -66,7 +66,7 @@
 
 <div id="Calorie_table" class="tabcontent" style="margin: 0 auto; border: 1px solid mediumvioletred;">
     <div id="catalog" style="display: inline-block; border: 1px solid mediumvioletred;">
-        <h3>Calorie table</h3>
+        <h3>Таблица калорийности</h3>
         <c:forEach var="categoryItem" items="${categoryList1.all}">
             <li>
                 <a href="category?categoryItemId=${categoryItem.id}"> <c:out value="${categoryItem.title}"/> </a>
@@ -76,7 +76,8 @@
 </div>
 
 <div id="MyProfile" class="tabcontent" >
-    <h3>MyProfile</h3>
+    <!-- todo -->
+    <h3>Личный кабинет</h3>
     <jsp:include page="diet.jsp"/>
 </div>
 
@@ -87,7 +88,7 @@
 
 
 <!-- jsp:include page="header.jsp" />-->
-<script>
+ <script>
     function openPage(pageName, elmnt, color) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");

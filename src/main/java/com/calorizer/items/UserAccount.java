@@ -26,6 +26,11 @@ public class UserAccount extends Entity{
         this.personId = personId;
     }
 
+    public UserAccount(int id, String username) {
+        super(id);
+        this.username = username;
+    }
+
     public String getUserName() {
         return username;
     }

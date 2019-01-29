@@ -10,36 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
-@WebServlet(urlPatterns = {"/category"} )
+@WebServlet(urlPatterns = {"/productList"} )
 public class ProductCategoryServlet extends HttpServlet {
 
     @Override
-    public void init() throws ServletException {
-        System.out.println("ProductCategoryServlet init");
-    }
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("categoryItemId"));
-
-        System.out.println("-----------------");
         List<Product> list = new ProductDAO().getByProductCategoryId(Integer.parseInt(request.getParameter("categoryItemId")));
-        list.forEach(System.out::println);
-        System.out.println("-----------------");
-
-
-        //List<Product> productList = ProductFactory.createProduct(Integer.parseInt(request.getParameter("categoryItemId"))).createProducts();
         request.setAttribute("productList", list);
-        request.getRequestDispatcher("/pages/category.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/productList.jsp").forward(request, response);
     }
 
-
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("ProductCategoryServlet doPost");
-        System.out.println(req.getParameter("postRequestCategory"));
-    }
 
 }

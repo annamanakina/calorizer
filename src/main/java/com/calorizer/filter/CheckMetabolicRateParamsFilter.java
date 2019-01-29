@@ -33,7 +33,7 @@ public class CheckMetabolicRateParamsFilter implements Filter {
 
     private void sendErrorMessage(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
         servletRequest.setAttribute("error_message", "заполните необходимые поля!!");
-        servletRequest.getRequestDispatcher("/pages/main.jsp").forward(servletRequest, servletResponse);
+        servletRequest.getRequestDispatcher("/pages/usersettings.jsp").forward(servletRequest, servletResponse);
     }
 
     @Override

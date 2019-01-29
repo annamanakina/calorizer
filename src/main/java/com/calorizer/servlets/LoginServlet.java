@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
         // И перенаправить к странице profile.
         else {
             HttpSession session = request.getSession();
-            // todo AppUtils.storeLoginedUser(session, user);
+            AppUtils.storeLoginedUser(session, user);
 
             // Если пользователь выбирает функцию "Remember me".
             if (remember) {

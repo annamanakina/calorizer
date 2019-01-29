@@ -110,6 +110,41 @@ public class PersonDAO extends AbstractDAO<Integer, Person> {
         return isCreated;
     }
 
+    public String createPerson(Person person) {
+        ConnectionPool pool = null;
+        Connection cn = null;
+
+        Statement st = null;
+        ResultSet resultSet;
+        String rowId =null;
+        try {
+            pool = ConnectionPool.getInstance();
+            cn = pool.getConnection();
+            st = cn.createStatement();
+
+            String str = "insert into calorizerdb.person ("+ PERSON_FIRST_NAME + ", "
+                    + PERSON_LAST_NAME+ " ) VALUES ('"
+                    + person.getFirstName() + "', '"
+                    + person.getLastName() + "');";
+            //pool.close(st);
+            st.executeUpdate(str);
+
+           // Statement st1 = cn.createStatement();
+            resultSet = st.executeQuery("select LAST_INSERT_ID() as last_id from calorizerdb.person;");
+
+            while (resultSet.next()){
+                rowId = resultSet.getString("last_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("PersonDAO create: SQL exception (request or table failed): " + e);
+        } finally {
+            pool.close(st);
+            pool.close(cn);
+        }
+
+        return rowId;
+    }
+
     @Override
     public Person update(Person object) {
         return null;

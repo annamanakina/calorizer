@@ -11,6 +11,10 @@
 <head>
     <title>My settings</title>
    <style>
+
+       body{
+           background-color: #f0ffee;
+       }
        input{
            display: inline-block;
            margin-bottom: 20px;
@@ -42,11 +46,11 @@
 </head>
 <body>
 
-<h3> My settings</h3>
+<jsp:include page="/pages/views/header.jsp"></jsp:include>
+<jsp:include page="/pages/views/menu.jsp"></jsp:include>
 
-
-<form name="usersettings_form" action="usersettings" method="post">
-    <div style="display: inline-block; border:1px solid blue; width: 40%; padding: 20px;  background-color: #ceffc9; ">
+<form name="usersettings_form" action="myprofile" method="post">
+    <div style="display: inline-block; width: 40%; padding: 20px; ">
         <p id="sex"> Sex: </p>
         <input type="radio" name="gender" value="MALE" checked style="display: inline-block">
         <p>  Male </p>
@@ -71,7 +75,7 @@
         <input id="calculate" type="submit" name="button" value="Calculate"/>
 
     </div>
-    <div style="display: inline-block; border:1px solid red; width: 50%;  background-color: aquamarine; " >
+    <div style="display: inline-block; width: 50%; " >
         <fmt:setLocale value="en_US"/>
         <p class="indicator" name="mbi"> BMI (body mass index):
             <fmt:formatNumber maxFractionDigits = "2" value="${mbi}" type="number"/>  </p>

@@ -10,15 +10,22 @@
 <html>
 <head>
     <title>Category</title>
+<style>
+    body{
+        background-color: #f0ffee;
+    }
+</style>
 </head>
 <body>
 
+<jsp:include page="/pages/views/header.jsp"></jsp:include>
+<jsp:include page="/pages/views/menu.jsp"></jsp:include>
+
 <table style="width:50%; margin-left: auto; margin-right: auto;  border: 3px solid rebeccapurple;">
 
-    <caption> product list </caption>
     <thead >
     <tr>
-        <th>Продукт</th>
+        <th >Продукт</th>
         <th>Белки</th>
         <th>Жиры</th>
         <th>Углеводы</th>
